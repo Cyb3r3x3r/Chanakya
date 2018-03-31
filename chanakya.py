@@ -37,7 +37,7 @@ class chanakya:
         ip = socket.gethostbyname(victim)
         print('{} [+] IP Address = {}{}'.format(g,ip,e))
         print('')
-        print('{} [~] Getting robots.txt..... {}'.format(y,e))
+        print('{} [~] Getting robots.txt.....be patient {}'.format(y,e))
         try:
             self.robots(victim)
         except:
