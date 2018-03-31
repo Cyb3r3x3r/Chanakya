@@ -75,8 +75,11 @@ class chanakya:
         try:
             robot = requests.get('http://' + victim + '/robots.txt').text
             print('{}--------------------------------------{}'.format(y,e))
-            print('{}  [+] Robots.txt retrieved {}'.format(g,e))
-            print('{}{}{}'.format(g,robot,e))
+            if '<title>' in robot:
+                print('{} [-] Looks like there is a problem retrieving robots.txt {}'.format(r,e))
+            else:
+                print('{}  [+] Robots.txt retrieved {}'.format(g,e))
+                print('{}{}{}'.format(g,robot,e))
         except:
             pass
 
