@@ -1,6 +1,8 @@
 # Chanakya
 Scan websites for multiple things like honeypot, whois , port scan etc...
 
+![](https://raw.githubusercontent.com/Cyb3r3x3r/Chanakya/master/chanakya.PNG)
+
 ## Installation
 
 Simple installation steps:
