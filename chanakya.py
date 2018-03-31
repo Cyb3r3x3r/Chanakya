@@ -84,7 +84,7 @@ class chanakya:
         scan = requests.get('http://api.hackertarget.com/nmap/?q=' + ip).text
         result = sub(r'Starting[^<]*\)\.', '', scan)
         result = sub(r'Service[^<]*seconds', '', scan)
-        print(result)
+        print('{} [+] {}{}'.format(g,result,e))
 
     def honey(self,ip):
         print('{} [~] Checking Honeypot Probability from online source.........{}'.format(w,e))
