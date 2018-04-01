@@ -17,7 +17,7 @@ e = '\033[1;m'
 # Add your own ideas to it....but don't steal it
 # atleast mention my name .. Cyb3r3x3r
 
-Version = '0.1.6'
+Version = 'v0.1.6'
 
 class chanakya:
     def __init__(self):
