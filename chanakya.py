@@ -1,4 +1,5 @@
 # Copyright Cyb3r3x3r - Indian Cyber Ghosts
+# New update = v0.1.7
 
 from re import search, sub
 import requests
@@ -6,6 +7,7 @@ import socket
 import os
 import sys
 import whois
+import time
 
 w = '\033[1;97m'
 g = '\033[1;32m'
@@ -14,10 +16,10 @@ y = '\033[1;33m'
 e = '\033[1;m'
 
 # This program is free to modify and develop
-# Add your own ideas to it....but don't steal it
-# atleast mention my name .. Cyb3r3x3r
+# Add your own ideas to it....but don't try to own in....atleast mention my name .. Cyb3r3x3r
+# http://www.sniperhacks.wordpress.com/
 
-Version = 'v0.1.6'
+Version = 'v0.1.7'
 
 class chanakya:
     def __init__(self):
@@ -34,8 +36,15 @@ class chanakya:
         except:
             pass
         print('{} [~] Starting getting informations ...... {}'.format(g,e))
+        time.sleep(3)
         ip = socket.gethostbyname(victim)
         print('{} [+] IP Address = {}{}'.format(g,ip,e))
+        print('')
+        self.check_joom(victim)
+        print('')
+        self.wp_check(victim)
+        print('')
+        self.check_drup(victim)
         print('')
         print('{} [~] Getting robots.txt.....be patient {}'.format(y,e))
         try:
@@ -73,7 +82,7 @@ class chanakya:
 
     def robots(self,victim):
         try:
-            robot = requests.get('http://' + victim + '/robots.txt').text
+            robot = requests.get('http://' + victim + '/robots.txt',timeout=10).text
             print('{}--------------------------------------{}'.format(y,e))
             if '<title>' in robot:
                 print('{} [-] Looks like there is a problem retrieving robots.txt {}'.format(r,e))
@@ -84,16 +93,20 @@ class chanakya:
             pass
 
     def portscan(self,ip):
-        scan = requests.get('http://api.hackertarget.com/nmap/?q=' + ip).text
-        result = sub(r'Starting[^<]*\)\.', '', scan)
-        result = sub(r'Service[^<]*seconds', '', scan)
-        print('{} [+] {}{}'.format(g,result,e))
+        try:
+            scan = requests.get('http://api.hackertarget.com/nmap/?q=' + ip,timeout=10).text
+            result = sub(r'Starting[^<]*\)\.', '', scan)
+            result = sub(r'Service[^<]*seconds', '', scan)
+            print('{}[+]{}{}'.format(g,result,e))
+        except:
+            print('{}[-]Port Scan can not be completed....Skipping...{}'.format(r,e))
+            time.sleep(2)
 
     def honey(self,ip):
         print('{} [~] Checking Honeypot Probability from online source.........{}'.format(w,e))
         match = {"0.0": 0, "0.1": 10, "0.2": 20, "0.3": 30, "0.4": 40, "0.5": 50, "0.6": 60, "0.7": 70, "0.8": 80, "0.9": 90, "1.0": 10}
         try:
-            gethoney = requests.get('https://api.shodan.io/labs/honeyscore/' + str(ip) + '?key=C23OXE0bVMrul2YeqcL7zxb6jZ4pj2by').text
+            gethoney = requests.get('https://api.shodan.io/labs/honeyscore/' + str(ip) + '?key=C23OXE0bVMrul2YeqcL7zxb6jZ4pj2by',timeout=10).text
             print('{} [+] HoneyPot Check Result = {}{}'.format(g,gethoney,e))
             print('{} [+] HoneyPot Probability Result = {}{}'.format(g,match[gethoney],e))
             check = float(gethoney)
@@ -128,6 +141,45 @@ class chanakya:
             print('[+] Country = \033[1;m',info.country)
         except Exception:
             print('{} [-] Some Error occurred while getting whois information..{}'.format(r,e))
+
+    def check_joom(self,url):
+        try:
+            print('{} [~] Checking Joomla Installation.......{}'.format(y,e))
+            time.sleep(2)
+            joom = requests.get('http://' + url,timeout=5).text
+            if '/administrator' in joom or '/joomla/' in joom or 'content=\"Joomla!' in joom:
+                print('{}[+] Joomla Installation Found...{}'.format(g,e))
+            else:
+                print('{}[!] No Joomla Installation Found...{}'.format(y,e))
+        except Exception:
+            print("{}[-] Some error Occurred....Continuing....{}".format(r,e))
+
+    def wp_check(self,url):
+        try:
+            print('{} [~] Checking Wordpress Installation.......{}'.format(y,e))
+            time.sleep(2)
+            wp = requests.get('http://' + url,timeout=5).text
+            if '/wp-admin' in wp or '/wp-content' in wp:
+                print('{}[+] Wordpress Installation Found...{}'.format(g,e))
+            else:
+                print('{}[!] No Wordpress Installation Found...{}'.format(y,e))
+        except Exception:
+            print("{}[-] Some error Occurred....Continuing....{}".format(r,e))
+
+
+    def check_drup(self,url):
+        try:
+            print('{} [~] Checking Drupal Installation.......{}'.format(y,e))
+            time.sleep(2)
+            drupal = requests.get('http://' + url,timeout=5).text
+            if '/user' in drupal:
+                print('{}[+] Drupal Installation Found...{}'.format(g,e))
+            else:
+                print('{}[!] No Drupal Installation Found...{}'.format(y,e))
+        except Exception:
+            print("{}[-] Some error Occurred....Continuing....{}".format(r,e))
+
+
 
 cyb = chanakya()
 cyb
