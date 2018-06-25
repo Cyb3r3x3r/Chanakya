@@ -26,5 +26,8 @@ just like
 ###### Scan port from online source
 ###### Robots.txt
 ###### Show whois result
+###### Check for joomla installation
+###### Check for drupal installation
+###### Check for wordpress installation
 
 ***Many more things will be added and any suggestion is warmly appreciated***
