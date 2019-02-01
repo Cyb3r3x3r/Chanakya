@@ -8,8 +8,6 @@ r = '\033[1;31m'
 y = '\033[1;33m'
 e = '\033[1;m'
 
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 if sys.version[0] > '2':
     pass
@@ -34,7 +32,8 @@ try:
 except:
     print('[{}INFO{}]Please install all module from requirements'.format(y,y))
     sys.exit()
-
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # This program is free to modify and develop
 # Add your own ideas to it....but don't try to own in....atleast mention my name .. Cyb3r3x3r
 # http://www.sniperhacks.wordpress.com/
