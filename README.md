@@ -1,4 +1,4 @@
-# Chanakya
+# Chanakya v0.1.8
 Scan websites for multiple things like honeypot, whois , port scan etc...
 
 ![](https://raw.githubusercontent.com/Cyb3r3x3r/Chanakya/master/chanakya.PNG)
