@@ -1,25 +1,45 @@
 # Copyright Cyb3r3x3r - Indian Cyber Ghosts
-# New update = v0.1.7
-
-from re import search, sub
-import requests
-import socket
-import os
+# Version = v0.1.8
 import sys
-import whois
-import time
-
+import os
 w = '\033[1;97m'
 g = '\033[1;32m'
 r = '\033[1;31m'
 y = '\033[1;33m'
 e = '\033[1;m'
 
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+if sys.version[0] > '2':
+    pass
+else:
+    print("[{}WARNING{}] You are using Python 2...Install Python 3 to use Chanakya".format(r,r))
+    print("[{}INFO{}] A version for Python 2 may be avaiable in future".format(g,g))
+    sys.exit()
+
+from re import search, sub
+try:
+    import requests
+except:
+    print('[{}INFO{}]Please install all module from requirements'.format(y,y))
+    sys.exit()
+try:
+    import socket
+except:
+    print('[{}INFO{}]Please install all module from requirements'.format(y,y))
+    sys.exit()
+try:
+    import whois
+except:
+    print('[{}INFO{}]Please install all module from requirements'.format(y,y))
+    sys.exit()
+
 # This program is free to modify and develop
 # Add your own ideas to it....but don't try to own in....atleast mention my name .. Cyb3r3x3r
 # http://www.sniperhacks.wordpress.com/
 
-Version = 'v0.1.7'
+Version = 'v0.1.8'
 
 class chanakya:
     def __init__(self):
@@ -82,7 +102,7 @@ class chanakya:
 
     def robots(self,victim):
         try:
-            robot = requests.get('http://' + victim + '/robots.txt',timeout=10).text
+            robot = requests.get('http://' + victim + '/robots.txt',timeout=10, verify=False).text
             print('{}--------------------------------------{}'.format(y,e))
             if '<title>' in robot:
                 print('{} [-] Looks like there is a problem retrieving robots.txt {}'.format(r,e))
@@ -94,7 +114,7 @@ class chanakya:
 
     def portscan(self,ip):
         try:
-            scan = requests.get('http://api.hackertarget.com/nmap/?q=' + ip,timeout=10).text
+            scan = requests.get('http://api.hackertarget.com/nmap/?q=' + ip,timeout=10, verify=False).text
             result = sub(r'Starting[^<]*\)\.', '', scan)
             result = sub(r'Service[^<]*seconds', '', scan)
             print('{}[+]{}{}'.format(g,result,e))
@@ -106,7 +126,7 @@ class chanakya:
         print('{} [~] Checking Honeypot Probability from online source.........{}'.format(w,e))
         match = {"0.0": 0, "0.1": 10, "0.2": 20, "0.3": 30, "0.4": 40, "0.5": 50, "0.6": 60, "0.7": 70, "0.8": 80, "0.9": 90, "1.0": 10}
         try:
-            gethoney = requests.get('https://api.shodan.io/labs/honeyscore/' + str(ip) + '?key=C23OXE0bVMrul2YeqcL7zxb6jZ4pj2by',timeout=10).text
+            gethoney = requests.get('https://api.shodan.io/labs/honeyscore/' + str(ip) + '?key=C23OXE0bVMrul2YeqcL7zxb6jZ4pj2by',timeout=10, verify=False).text
             print('{} [+] HoneyPot Check Result = {}{}'.format(g,gethoney,e))
             print('{} [+] HoneyPot Probability Result = {}{}'.format(g,match[gethoney],e))
             check = float(gethoney)
@@ -125,12 +145,10 @@ class chanakya:
             print('[+] Registrar = ',info.registrar)
             print('[+] Whois Server = ',info.whois_server)
             print('[+] Referral Url = ',info.referral_url)
-            print('[+] Update Date = ',info.updated_date)
             print('[+] Creation Date = ',info.creation_date)
             print('[+] Expiration Date = ',info.expiration_date)
             print('[+] Name Servers = ',info.name_servers)
-            print('[+] Status = ',info.status)
-            print('[+] Emails = ',info.emails)
+            print('[+] Emails = ',info.emails[1])
             print('[+] DNSSEC = ',info.dnssec)
             print('[+] Name = ',info.name)
             print('[+] Organization = ',info.org)
