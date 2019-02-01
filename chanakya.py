@@ -17,6 +17,7 @@ else:
     sys.exit()
 
 from re import search, sub
+import time
 try:
     import requests
 except:
