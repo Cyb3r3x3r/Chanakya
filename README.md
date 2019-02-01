@@ -29,5 +29,7 @@ just like
 ###### Check for joomla installation
 ###### Check for drupal installation
 ###### Check for wordpress installation
+###### Http headers
+###### Dump links
 
 ***Many more things will be added and any suggestion is warmly appreciated***
