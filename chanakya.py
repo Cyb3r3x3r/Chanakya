@@ -8,7 +8,6 @@ r = '\033[1;31m'
 y = '\033[1;33m'
 e = '\033[1;m'
 
-
 if sys.version[0] > '2':
     pass
 else:
@@ -16,7 +15,7 @@ else:
     print("[{}INFO{}] A version for Python 2 may be avaiable in future".format(g,g))
     sys.exit()
 
-from re import search, sub
+import re
 import time
 try:
     import requests
@@ -60,6 +59,8 @@ class chanakya:
         ip = socket.gethostbyname(victim)
         print('{} [+] IP Address = {}{}'.format(g,ip,e))
         print('')
+        self.httpheaders(victim)
+        print('')
         self.check_joom(victim)
         print('')
         self.wp_check(victim)
@@ -78,6 +79,10 @@ class chanakya:
         self.portscan(ip)
         print('')
         self.whois(victim)
+        print('')
+        print('')
+        print('{} [~] Sending spider to dump links.....{}'.format(y,e))
+        self.spider(victim)
         print('{} [!] Done Getting Info....Exitting....{}'.format(w,e))
     def logo(self):
         print("""{}
@@ -102,10 +107,10 @@ class chanakya:
 
     def robots(self,victim):
         try:
-            robot = requests.get('http://' + victim + '/robots.txt',timeout=10, verify=False).text
+            robot = requests.get('https://' + victim + '/robots.txt',timeout=10, verify=False).text
             print('{}--------------------------------------{}'.format(y,e))
             if '<title>' in robot:
-                print('{} [-] Looks like there is a problem retrieving robots.txt {}'.format(r,e))
+                print('{} [-] Looks like robots.txt is not available on this URL {}'.format(r,e))
             else:
                 print('{}  [+] Robots.txt retrieved {}'.format(g,e))
                 print('{}{}{}'.format(g,robot,e))
@@ -114,9 +119,9 @@ class chanakya:
 
     def portscan(self,ip):
         try:
-            scan = requests.get('http://api.hackertarget.com/nmap/?q=' + ip,timeout=10, verify=False).text
-            result = sub(r'Starting[^<]*\)\.', '', scan)
-            result = sub(r'Service[^<]*seconds', '', scan)
+            scan = requests.get('http://api.hackertarget.com/nmap/?q=' + ip).text
+            result = re.sub(r'Starting[^<]*\)\.', '', scan)
+            result = re.sub(r'Service[^<]*seconds', '', scan)
             print('{}[+]{}{}'.format(g,result,e))
         except:
             print('{}[-]Port Scan can not be completed....Skipping...{}'.format(r,e))
@@ -179,6 +184,9 @@ class chanakya:
             wp = requests.get('http://' + url,timeout=5).text
             if '/wp-admin' in wp or '/wp-content' in wp:
                 print('{}[+] Wordpress Installation Found...{}'.format(g,e))
+                print('{}[!] You can scan this website with CybScan WP Scanner.{}'.format(y,e))
+                print('{}[!] Check at - https://github.com/cyb3r3x3r/cybscan{}'.format(y,e))
+                time.sleep(1)
             else:
                 print('{}[!] No Wordpress Installation Found...{}'.format(y,e))
         except Exception:
@@ -197,7 +205,21 @@ class chanakya:
         except Exception:
             print("{}[-] Some error Occurred....Continuing....{}".format(r,e))
 
-
-
+    def spider(self,url):
+        try:
+            info = requests.get('http://api.hackertarget.com/pagelinks/?q=https://' + url).text
+            print('{} [+] Links retrieved >> {}'.format(y,e))
+            print('')
+            time.sleep(2)
+            print('{}{}{}'.format(g,info,e))
+        except:
+            print('{} [-]Looks like there is a problem retrieving links..{}'.format(r,e))
+            
+    def httpheaders(self,url):
+        checker = 'https://api.hackertarget.com/httpheaders/?q='+url
+        info = requests.get(checker).text
+        print('{}[!] HTTP headers retrieved >> {}'.format(y,e))
+        print('')
+        print('{}[+] {}{}'.format(g,info,e))
 cyb = chanakya()
 cyb
