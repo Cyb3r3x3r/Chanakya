@@ -20,17 +20,17 @@ import time
 try:
     import requests
 except:
-    print('[{}INFO{}]Please install all module from requirements'.format(y,y))
+    print('[{}INFO{}]Requests Not found. Please install all module from requirements'.format(y,y))
     sys.exit()
 try:
     import socket
 except:
-    print('[{}INFO{}]Please install all module from requirements'.format(y,y))
+    print('[{}INFO{}]Socket not found. Please install all module from requirements'.format(y,y))
     sys.exit()
 try:
     import whois
 except:
-    print('[{}INFO{}]Please install all module from requirements'.format(y,y))
+    print('[{}INFO{}]Whois not found. Please install all module from requirements'.format(y,y))
     sys.exit()
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -38,7 +38,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # Add your own ideas to it....but don't try to own in....atleast mention my name .. Cyb3r3x3r
 # http://www.sniperhacks.wordpress.com/
 
-Version = 'v0.1.8'
+Version = 'v0.1.81'
 
 class chanakya:
     def __init__(self):
@@ -73,10 +73,10 @@ class chanakya:
         except:
             print('{} [-] looks like robots.txt can\'t be retrieved{}'.format(r,e))
         print('')
-        self.honey(ip)
-        print('')
-        print('{} [~] Scanning port with nmap scanner....{}'.format(y,e))
-        self.portscan(ip)
+        #self.honey(ip)
+        #print('')
+        #print('{} [~] Scanning port with nmap scanner....{}'.format(y,e))
+        #self.portscan(ip)
         print('')
         self.whois(victim)
         print('')

@@ -1,5 +1,5 @@
-# Chanakya v0.1.8
-Scan websites for multiple things like honeypot, whois , port scan etc...
+# Chanakya v0.1.9
+A tool for scanning websites
 
 ![](https://raw.githubusercontent.com/Cyb3r3x3r/Chanakya/master/chanakya.PNG)
 
@@ -22,8 +22,8 @@ python chanakya.py
 It will do various things for you....
 just like
 ###### Shows IP address
-###### Check system for honeypot
-###### Scan port from online source
+###### Check system for honeypot (onhold for now)
+###### Scan port from online source (onhold for now)
 ###### Robots.txt
 ###### Show whois result
 ###### Check for joomla installation
